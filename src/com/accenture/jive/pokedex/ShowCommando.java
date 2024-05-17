@@ -6,7 +6,14 @@ import java.util.ArrayList;
 
 public class ShowCommando {
 
-    public void execute(ArrayList<Pokemon> pokedex) {
+    public ArrayList<Pokemon> pokedex;
+
+    public ShowCommando(ArrayList<Pokemon> pokedex) {
+
+        this.pokedex = pokedex;
+    }
+
+    public void execute() {
         //Ziel von showCommando ist es alle Pokemon im Pokedex inklusive aller Moves zu loggen
         //Anzeigen wie viele Pokemon insgesamt in der Liste sind:
         System.out.println("You have already caught " + pokedex.size() + " Pokemon.");

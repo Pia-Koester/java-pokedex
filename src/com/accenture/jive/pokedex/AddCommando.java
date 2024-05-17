@@ -9,7 +9,20 @@ import java.util.Scanner;
 
 public class AddCommando {
 
-    public void execute(PokemonFactory pokemonFactory, Scanner scanner, ArrayList<Move> allMoves, ArrayList<Pokemon> pokedex) {
+    public Scanner scanner;
+    public PokemonFactory pokemonFactory;
+    public ArrayList<Pokemon> pokedex;
+    public ArrayList<Move> allMoves;
+
+    public AddCommando(Scanner scanner, PokemonFactory pokemonFactory, ArrayList<Pokemon> pokedex, ArrayList<Move> allMoves) {
+        this.scanner = scanner;
+
+        this.pokemonFactory = pokemonFactory;
+        this.pokedex = pokedex;
+        this.allMoves = allMoves;
+    }
+
+    public void execute() {
         System.out.println("Which Pokemon did you catch?");
         String pokemonName = scanner.nextLine();
         System.out.println("What type is this Pokemon?");

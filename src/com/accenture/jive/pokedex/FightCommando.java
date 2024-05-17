@@ -7,7 +7,20 @@ import java.util.Scanner;
 
 public class FightCommando {
 
-    public void execute(Pokemon opponent, ArrayList<Pokemon> pokedex, Scanner scanner) {
+    public Scanner scanner;
+    public ArrayList<Pokemon> pokedex;
+    //QUESTION: sollte ich diesen Opponent vielleicht erst hier createn und deshalb eher die Pokemon Factory sowie die Movefactory im constuctor haben?
+    public Pokemon opponent;
+
+    public FightCommando(Scanner scanner, ArrayList<Pokemon> pokedex, Pokemon opponent
+    ) {
+
+        this.scanner = scanner;
+        this.pokedex = pokedex;
+        this.opponent = opponent;
+    }
+
+    public void execute() {
         System.out.println("\u001B[31m" + "oh no.... a wild " + opponent.name + " appeared." + "\u001B[0m");
         System.out.println("Who should fight this Pokemon? Select: ");
         for (Pokemon pokemon : pokedex) {

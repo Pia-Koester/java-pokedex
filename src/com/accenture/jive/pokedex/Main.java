@@ -15,6 +15,10 @@ public class Main {
 
 
     public void run() {
+
+        ArrayList<Pokemon> pokedex = new ArrayList<>();
+        ArrayList<Move> allMoves = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in); //in bedeutet dass was reingeschrieben wird
         PokemonFactory pokemonFactory = new PokemonFactory();
         //Creating the moves to fill the move sets
         MoveFactory moveFactory = new MoveFactory();
@@ -30,24 +34,21 @@ public class Main {
         Pokemon opponent = pokemonFactory.createPokemon("Slaking", 3882, 217, "Normal", slackOff, scratch);
 
         //Nachdem die einzelnen .Pokemon erstellt wurden sllen sie teil einer Arrayliste werden
-        ArrayList<Pokemon> pokedex = new ArrayList<>();
         //die Liste Pokemon ist jetzt noch leer, und die Pokemon werden eins nacheinander hinzugefügt
         pokedex.add(p1);
         pokedex.add(p2);
 
         //ein Array von allen vorhandenen Moves, damit ich drüber loopen kann
-        ArrayList<Move> allMoves = new ArrayList<>();
         allMoves.add(vineWhip);
         allMoves.add(tackle);
         allMoves.add(fireFang);
 
         //Importing and initialising commandos for future use
-        AddCommando addCommando = new AddCommando();
-        ShowCommando showCommando = new ShowCommando();
-        FightCommando fightCommando = new FightCommando();
+        AddCommando addCommando = new AddCommando(scanner, pokemonFactory, pokedex, allMoves);
+        ShowCommando showCommando = new ShowCommando(pokedex);
+        FightCommando fightCommando = new FightCommando(scanner, pokedex, opponent);
 
         //Damit ich input von usern bekommen kann brauche ich eine Scanner Objekt
-        Scanner scanner = new Scanner(System.in); //in bedeutet dass was reingeschrieben wird
         System.out.println("Welcome to the World of Pokemon!");
         System.out.println("What do you want to do? ");
         System.out.println("\u001B[35m" + "In case you don't know what to do enter 'help'." + "\u001B[0m");
@@ -65,11 +66,11 @@ public class Main {
             } else if ("help".equalsIgnoreCase(line) || "".equals(line)) {
                 showHelp();
             } else if ("add".equalsIgnoreCase(line)) {
-                addCommando.execute(pokemonFactory, scanner, allMoves, pokedex);
+                addCommando.execute();
             } else if ("show".equalsIgnoreCase(line)) {
-                showCommando.execute(pokedex);
+                showCommando.execute();
             } else if ("fight".equalsIgnoreCase(line)) {
-                fightCommando.execute(opponent, pokedex, scanner);
+                fightCommando.execute();
             }
 
         }
