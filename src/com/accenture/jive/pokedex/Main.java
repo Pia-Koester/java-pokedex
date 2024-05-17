@@ -47,6 +47,7 @@ public class Main {
         AddCommando addCommando = new AddCommando(scanner, pokemonFactory, pokedex, allMoves);
         ShowCommando showCommando = new ShowCommando(pokedex);
         FightCommando fightCommando = new FightCommando(scanner, pokedex, opponent);
+        ShowHelp showHelp = new ShowHelp();
 
         //Damit ich input von usern bekommen kann brauche ich eine Scanner Objekt
         System.out.println("Welcome to the World of Pokemon!");
@@ -64,7 +65,7 @@ public class Main {
             if ("exit".equalsIgnoreCase(line)) {
                 shouldRun = false;
             } else if ("help".equalsIgnoreCase(line) || "".equals(line)) {
-                showHelp();
+                showHelp.execute();
             } else if ("add".equalsIgnoreCase(line)) {
                 addCommando.execute();
             } else if ("show".equalsIgnoreCase(line)) {
@@ -76,15 +77,6 @@ public class Main {
         }
         System.out.println("Closing your Pokedex.");
 
-    }
-
-    //QUESTION: wo packe ich das hin? In die ShowCommando Klasse?
-    public void showHelp() {
-        System.out.println("Here are all the possible commands: ");
-        System.out.println("If you want to exit this programm enter 'exit'.");
-        System.out.println("For all Pokemon in your Pokedex enter 'show'");
-        System.out.println("If you caught a new Pokemon enter 'add'");
-        System.out.println("Maybe you will meet a wild pokemon if you enter 'fight'");
     }
 
 
