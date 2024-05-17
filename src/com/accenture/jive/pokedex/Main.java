@@ -1,21 +1,34 @@
 package com.accenture.jive.pokedex;
 
+import com.accenture.jive.pokedex.pokemon.Pokemon;
+import com.accenture.jive.pokedex.pokemon.PokemonFactory;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    private static void showCommando(ArrayList<Pokemon> pokedex) {
-        //Jetzt wollen wir über die ArrayList loopen um die Objekte zu loggen
+
+    /***
+     * Test project to learn java
+     * This time with Arraylists instead of regular arrays
+     * */
+
+    public void showCommando(ArrayList<Pokemon> pokedex) {
+        //Ziel von showCommando ist es alle Pokemon im Pokedex inklusive aller Moves zu loggen
+        //Anzeigen wie viele Pokemon insgesamt in der Liste sind:
         System.out.println("You have already caught " + pokedex.size() + " Pokemon.");
+        //loop um die einzelnen Namen zu loggen
         for (Pokemon pokemon : pokedex) {
             int pokemonPosition = pokedex.indexOf(pokemon) + 1;
             System.out.println("Pokemon No." + pokemonPosition + ": " + pokemon.name);
             System.out.println("This pokemon knows the move: ");
+            //loop über alle Moves, damit diese abgebildet werden können. Falls die ArrayList leer ist kommt eine andere Nachricht
             if (pokemon.moveset.isEmpty()) {
                 System.out.println("This pokemon does not know any moves :(");
             } else {
                 for (Move move : pokemon.moveset) {
+                    //QUESTION: braucht es diese if Bedingung jetzt eigentlich noch? Bin ja von array zu ArrayList gewechselt
                     if (move != null) {
                         System.out.println(move.name);
                     }
@@ -25,21 +38,12 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        Main main = new Main();
-        main.run();
-    }
-
-    /***
-     * Test project to learn java
-     * This time with Arraylists instead of regular arrays
-     * */
-
 
     public void run() {
+
+
         PokemonFactory pokemonFactory = new PokemonFactory();
         //Creating the moves to fill the move sets
-
         MoveFactory moveFactory = new MoveFactory();
         Move vineWhip = moveFactory.createMove("Vine Whip", 45);
         Move tackle = moveFactory.createMove("Tackle", 33);
@@ -47,13 +51,14 @@ public class Main {
         Move slackOff = moveFactory.createMove("Slack Off", 75);
         Move scratch = moveFactory.createMove("Scratch", 40);
 
+        //Creating the initial pokemon which are always part of the pokedex
         Pokemon p1 = pokemonFactory.createPokemon("Bisasam", 23, 155, "Grass", vineWhip, tackle, fireFang);
         Pokemon p2 = pokemonFactory.createPokemon("Charmander", 77, 88, "Fire", fireFang);
         Pokemon opponent = pokemonFactory.createPokemon("Slaking", 3882, 217, "Normal", slackOff, scratch);
 
-        //Nachdem die einzelnen com.accenture.jive.pokedex.Pokemon erstellt wurden sollen sie teil einer Arrayliste werden
+        //Nachdem die einzelnen .Pokemon erstellt wurden sllen sie teil einer Arrayliste werden
         ArrayList<Pokemon> pokedex = new ArrayList<>();
-        //die Liste com.accenture.jive.pokedex.Pokemon ist jetzt noch leer, und die com.accenture.jive.pokedex.Pokemon werden eins nacheinander hinzugefügt
+        //die Liste Pokemon ist jetzt noch leer, und die Pokemon werden eins nacheinander hinzugefügt
         pokedex.add(p1);
         pokedex.add(p2);
 
@@ -68,13 +73,13 @@ public class Main {
         Scanner scanner = new Scanner(System.in); //in bedeutet dass was reingeschrieben wird
         System.out.println("Welcome to the World of Pokemon!");
         System.out.println("What do you want to do? ");
-        System.out.println("In case you don't know what to do enter 'help'.");
-        //endlosschleife, sodass nur bei dem exit stichwort das Programm beendet wird
+        System.out.println("\u001B[35m" + "In case you don't know what to do enter 'help'." + "\u001B[0m");
+        //While schleife, sodass nur bei dem exit stichwort das Programm beendet wird
         boolean shouldRun = true;
         while (shouldRun) {
 
             String line = scanner.nextLine();
-            System.out.println("Your choice was: " + line);
+            System.out.println("Your choice was: " + "\u001B[33m" + line + "\u001B[0m");
 
             //QUESTION: Würde es sich hier anbieten lieber Switch Case zu nutzen anstelle von if else?
             if ("exit".equalsIgnoreCase(line)) {
@@ -95,7 +100,7 @@ public class Main {
     }
 
     public void fightCommando(Pokemon opponent, ArrayList<Pokemon> pokedex, Scanner scanner) {
-        System.out.println("oh no.... a wild " + opponent.name + " appeared.");
+        System.out.println("\u001B[31m" + "oh no.... a wild " + opponent.name + " appeared." + "\u001B[0m");
         System.out.println("Who should fight this Pokemon? Select: ");
         for (Pokemon pokemon : pokedex) {
             System.out.println(pokemon.name);
@@ -103,11 +108,13 @@ public class Main {
         String selectedPokemon = scanner.nextLine();
         Pokemon fightingPokemon = new Pokemon();
         //Im Pokedex wird gecheckt ob das eingegebene Pokemon existiert
+        //QUESTION: ich hätte hier auch gerne die Exit Bedingugn ohne sie nochmal von vorne schreiben zu müssen
 
+//TO DO: Double check dass das correct verläuft
         for (Pokemon pokemon : pokedex) {
             if (selectedPokemon.equals(pokemon.name)) {
                 fightingPokemon = pokemon;
-                System.out.println("You have selected " + pokemon.name + " to fight against" + opponent.name);
+                System.out.println("You have selected " + pokemon.name + " to fight against " + opponent.name);
                 break;
             } else {
                 System.out.println("This pokemon is not part of your pokedex.");
@@ -121,17 +128,21 @@ public class Main {
             System.out.println(move.name + " : " + move.power);
         }
         String inputMove = scanner.nextLine();
+        boolean found = false;
         for (Move move : fightingPokemon.moveset) {
             if (inputMove.equalsIgnoreCase(move.name)) {
                 opponent.hitPoints -= move.power;
                 System.out.println(opponent.name + "s hitpoints were reduced by " + move.power);
                 System.out.println(opponent.name + " now has " + opponent.hitPoints + " hitpoints remaining.");
-                break;
-            } else {
-                //QUESTION: wie kann ich hier weiterhin beim input Move bleiben und nicht zum anderen Scanner kommen?
-                System.out.println("Select a different move");
+                found = true;
             }
         }
+        //QUESTION: Warum wird diese NAchricht zweimal geloggt?
+        if (!found) {
+            System.out.println("This move does not exist");
+        }
+
+        //TO DO: weitere logik - hitpoints vom opponent lösen bei 0 eine Handlung aus
 
     }
 
@@ -140,6 +151,7 @@ public class Main {
         System.out.println("If you want to exit this programm enter 'exit'.");
         System.out.println("For all Pokemon in your Pokedex enter 'show'");
         System.out.println("If you caught a new Pokemon enter 'add'");
+        System.out.println("Maybe you will meet a wild pokemon if you enter 'fight'");
     }
 
     public void addCommando(PokemonFactory pokemonFactory, Scanner scanner, ArrayList<Move> allMoves, ArrayList<Pokemon> pokedex) {
@@ -149,6 +161,7 @@ public class Main {
         String pokemonType = scanner.nextLine();
         System.out.println("Combat Points and Hitpoints are being generated....");
         //TO DO: Random number generation for the points
+        //QUESTION: kann ich diesen part ausgliedern in eine andere Methode? - Bräuchte ich dafür wieder eine Klasse und dann ein Objekt?
         Random randNum = new Random();
         int upperbound = 500;
         int pokemonCP = randNum.nextInt(upperbound);
@@ -166,30 +179,33 @@ public class Main {
         // allMoves.contains(inputMove);
         boolean found = false;
         Move selectedMove = new Move();
-        while (!found) {
-            for (Move move : allMoves) {
-                if (inputMove.equals(move.name)) {
-                    selectedMove = move;
-                    found = true;
-                } else {
-                    System.out.println("This move does not exist");
-                }
+        for (Move move : allMoves) {
+            if (inputMove.equals(move.name)) {
+                selectedMove = move;
+                found = true;
             }
-            newPokemon.moveset.add(selectedMove);
+        }
+        if (!found) {
+            System.out.println("This Move does not exist!");
+        }
+        newPokemon.moveset.add(selectedMove);
 
-            pokedex.add(newPokemon);
-            System.out.println(newPokemon.name + " has been added. It knows the moves");
+        pokedex.add(newPokemon);
+        System.out.println(newPokemon.name + " has been added. It knows the moves");
 
-            if (newPokemon.moveset.isEmpty()) {
-                System.out.println("This pokemon does not know any moves :(");
-            } else {
-                for (Move move : newPokemon.moveset) {
-                    if (move != null) {
-                        System.out.println(move.name);
-                    }
+        if (newPokemon.moveset.isEmpty()) {
+            System.out.println("This pokemon does not know any moves :(");
+        } else {
+            for (Move move : newPokemon.moveset) {
+                if (move != null) {
+                    System.out.println(move.name);
                 }
             }
         }
     }
 
+    public static void main(String[] args) {
+        Main main = new Main();
+        main.run();
+    }
 }

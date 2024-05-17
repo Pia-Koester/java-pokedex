@@ -1,4 +1,6 @@
-package com.accenture.jive.pokedex;
+package com.accenture.jive.pokedex.pokemon;
+
+import com.accenture.jive.pokedex.Move;
 
 import java.util.ArrayList;
 

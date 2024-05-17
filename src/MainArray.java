@@ -1,5 +1,5 @@
 import com.accenture.jive.pokedex.Move;
-import com.accenture.jive.pokedex.Pokemon;
+import com.accenture.jive.pokedex.pokemon.Pokemon;
 
 public class MainArray {
     /***
