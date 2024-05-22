@@ -16,7 +16,7 @@ public class Main {
 
     public void run() {
 
-        ArrayList<Pokemon> pokedex = new ArrayList<>();
+        ArrayList<Monster> catalogue = new ArrayList<>();
         ArrayList<Move> allMoves = new ArrayList<>();
         Scanner scanner = new Scanner(System.in); //in bedeutet dass was reingeschrieben wird
         PokemonFactory pokemonFactory = new PokemonFactory();
@@ -35,8 +35,8 @@ public class Main {
 
         //Nachdem die einzelnen .Pokemon erstellt wurden sllen sie teil einer Arrayliste werden
         //die Liste Pokemon ist jetzt noch leer, und die Pokemon werden eins nacheinander hinzugefügt
-        pokedex.add(p1);
-        pokedex.add(p2);
+        catalogue.add(p1);
+        catalogue.add(p2);
 
         //ein Array von allen vorhandenen Moves, damit ich drüber loopen kann
         allMoves.add(vineWhip);
@@ -44,9 +44,9 @@ public class Main {
         allMoves.add(fireFang);
 
         //Importing and initialising commandos for future use
-        AddCommando addCommando = new AddCommando(scanner, pokemonFactory, pokedex, allMoves);
-        ShowCommando showCommando = new ShowCommando(pokedex);
-        FightCommando fightCommando = new FightCommando(scanner, pokedex, opponent);
+        AddCommando addCommando = new AddCommando(scanner, pokemonFactory, catalogue, allMoves);
+        ShowCommando showCommando = new ShowCommando(catalogue);
+        FightCommando fightCommando = new FightCommando(scanner, catalogue, opponent);
         ShowHelp showHelp = new ShowHelp();
 
         //Damit ich input von usern bekommen kann brauche ich eine Scanner Objekt
