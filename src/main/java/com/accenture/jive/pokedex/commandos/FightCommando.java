@@ -1,12 +1,14 @@
-package com.accenture.jive.pokedex;
+package com.accenture.jive.pokedex.commandos;
 
 
+import com.accenture.jive.pokedex.Monster;
+import com.accenture.jive.pokedex.Move;
 import com.accenture.jive.pokedex.pokemon.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FightCommando {
+public class FightCommando implements Commando {
 
     public Scanner scanner;
     public ArrayList<Monster> catalogue;
@@ -21,7 +23,7 @@ public class FightCommando {
         this.opponent = opponent;
     }
 
-    public void execute() {
+    public boolean execute() {
         System.out.println("\u001B[31m" + "oh no.... a wild " + opponent.name + " appeared." + "\u001B[0m");
         System.out.println("Who should fight this Pokemon? Select: ");
         for (Monster monster : catalogue) {
@@ -69,7 +71,11 @@ public class FightCommando {
         }
 
         //TO DO: weitere logik - hitpoints vom opponent lösen bei 0 eine Handlung aus
-
+        return true;
     }
 
+    @Override
+    public boolean shouldExecute(String userInput) {
+        return "fight".equalsIgnoreCase(userInput);
+    }
 }

@@ -1,10 +1,11 @@
-package com.accenture.jive.pokedex;
+package com.accenture.jive.pokedex.commandos;
 
+import com.accenture.jive.pokedex.Move;
 import com.accenture.jive.pokedex.pokemon.Pokemon;
 
 import java.util.ArrayList;
 
-public class ShowCommando {
+public class ShowCommando implements Commando {
 
     public ArrayList<com.accenture.jive.pokedex.Monster> catalogue;
 
@@ -13,7 +14,7 @@ public class ShowCommando {
         this.catalogue = catalogue;
     }
 
-    public void execute() {
+    public boolean execute() {
         //Ziel von showCommando ist es alle Pokemon im Pokedex inklusive aller Moves zu loggen
         //Anzeigen wie viele Pokemon insgesamt in der Liste sind:
         System.out.println("You have already caught " + catalogue.size() + " Pokemon.");
@@ -43,5 +44,11 @@ public class ShowCommando {
                 System.out.println("This monster is not a pokemon and therefore knows no moves");
             }
         }
+        return true;
+    }
+
+    @Override
+    public boolean shouldExecute(String userInput) {
+        return "show".equalsIgnoreCase(userInput);
     }
 }
