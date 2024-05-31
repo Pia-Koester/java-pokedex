@@ -1,5 +1,7 @@
-package com.accenture.jive.pokedex;
+package com.accenture.jive.pokedex.commandos;
 
+import com.accenture.jive.pokedex.Monster;
+import com.accenture.jive.pokedex.Move;
 import com.accenture.jive.pokedex.pokemon.Pokemon;
 import com.accenture.jive.pokedex.pokemon.PokemonFactory;
 
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class AddCommando {
+public class AddCommando implements Commando {
 
     public Scanner scanner;
     public PokemonFactory pokemonFactory;
@@ -22,7 +24,7 @@ public class AddCommando {
         this.allMoves = allMoves;
     }
 
-    public void execute() {
+    public boolean execute() {
         System.out.println("What kind of Monster did you catch?");
         String monsterType = scanner.nextLine();
         System.out.println("How is this Monster called? ");
@@ -75,6 +77,7 @@ public class AddCommando {
                 }
             }
         }
+        return true;
     }
 
 

@@ -1,5 +1,9 @@
 package com.accenture.jive.pokedex;
 
+import com.accenture.jive.pokedex.commandos.AddCommando;
+import com.accenture.jive.pokedex.commandos.FightCommando;
+import com.accenture.jive.pokedex.commandos.ShowCommando;
+import com.accenture.jive.pokedex.commandos.HelpCommando;
 import com.accenture.jive.pokedex.pokemon.Pokemon;
 import com.accenture.jive.pokedex.pokemon.PokemonFactory;
 
@@ -47,7 +51,7 @@ public class Main {
         AddCommando addCommando = new AddCommando(scanner, pokemonFactory, catalogue, allMoves);
         ShowCommando showCommando = new ShowCommando(catalogue);
         FightCommando fightCommando = new FightCommando(scanner, catalogue, opponent);
-        ShowHelp showHelp = new ShowHelp();
+        HelpCommando helpCommando = new HelpCommando();
 
         //Damit ich input von usern bekommen kann brauche ich eine Scanner Objekt
         System.out.println("Welcome to the World of Pokemon!");
@@ -65,13 +69,13 @@ public class Main {
             if ("exit".equalsIgnoreCase(line)) {
                 shouldRun = false;
             } else if ("help".equalsIgnoreCase(line) || "".equals(line)) {
-                showHelp.execute();
+                helpCommando.execute();
             } else if ("add".equalsIgnoreCase(line)) {
-                addCommando.execute();
+                shouldRun = addCommando.execute();
             } else if ("show".equalsIgnoreCase(line)) {
-                showCommando.execute();
+                shouldRun = showCommando.execute();
             } else if ("fight".equalsIgnoreCase(line)) {
-                fightCommando.execute();
+                shouldRun = fightCommando.execute();
             }
 
         }
