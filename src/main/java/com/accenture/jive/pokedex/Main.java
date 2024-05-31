@@ -1,13 +1,11 @@
 package com.accenture.jive.pokedex;
 
-import com.accenture.jive.pokedex.commandos.AddCommando;
-import com.accenture.jive.pokedex.commandos.FightCommando;
-import com.accenture.jive.pokedex.commandos.ShowCommando;
-import com.accenture.jive.pokedex.commandos.HelpCommando;
+import com.accenture.jive.pokedex.commandos.*;
 import com.accenture.jive.pokedex.pokemon.Pokemon;
 import com.accenture.jive.pokedex.pokemon.PokemonFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -48,34 +46,31 @@ public class Main {
         allMoves.add(fireFang);
 
         //Importing and initialising commandos for future use
-        AddCommando addCommando = new AddCommando(scanner, pokemonFactory, catalogue, allMoves);
-        ShowCommando showCommando = new ShowCommando(catalogue);
-        FightCommando fightCommando = new FightCommando(scanner, catalogue, opponent);
-        HelpCommando helpCommando = new HelpCommando();
+        Commando addCommando = new AddCommando(scanner, pokemonFactory, catalogue, allMoves);
+        Commando showCommando = new ShowCommando(catalogue);
+        Commando fightCommando = new FightCommando(scanner, catalogue, opponent);
+        Commando helpCommando = new HelpCommando();
+
+        List<Commando> commandos = new ArrayList<>();
+        commandos.add(addCommando);
+        commandos.add(showCommando);
+        commandos.add(fightCommando);
+        commandos.add(helpCommando);
 
         //Damit ich input von usern bekommen kann brauche ich eine Scanner Objekt
         System.out.println("Welcome to the World of Pokemon!");
         System.out.println("What do you want to do? ");
-        System.out.println("\u001B[35m" + "In case you don't know what to do enter 'help'." + "\u001B[0m");
         //While schleife, sodass nur bei dem exit stichwort das Programm beendet wird
         boolean shouldRun = true;
         while (shouldRun) {
+            System.out.println("\u001B[35m" + "In case you don't know what to do enter 'help'." + "\u001B[0m");
 
-            String line = scanner.nextLine();
-            System.out.println("Your choice was: " + "\u001B[33m" + line + "\u001B[0m");
-
-            //Würde es sich hier anbieten lieber Switch Case zu nutzen anstelle von if else?
-            //ANSWER: Ist einfach geschmackssache - kann ich selber entscheiden
-            if ("exit".equalsIgnoreCase(line)) {
-                shouldRun = false;
-            } else if ("help".equalsIgnoreCase(line) || "".equals(line)) {
-                helpCommando.execute();
-            } else if ("add".equalsIgnoreCase(line)) {
-                shouldRun = addCommando.execute();
-            } else if ("show".equalsIgnoreCase(line)) {
-                shouldRun = showCommando.execute();
-            } else if ("fight".equalsIgnoreCase(line)) {
-                shouldRun = fightCommando.execute();
+            String userInput = scanner.nextLine();
+            System.out.println("Your choice was: " + "\u001B[33m" + userInput + "\u001B[0m");
+            for (Commando commando : commandos) {
+                if (commando.shouldExecute(userInput)) {
+                    commando.execute();
+                }
             }
 
         }
