@@ -46,4 +46,9 @@ public class ShowCommando implements Commando {
         }
         return true;
     }
+
+    @Override
+    public boolean shouldExecute(String userInput) {
+        return "show".equalsIgnoreCase(userInput);
+    }
 }

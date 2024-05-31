@@ -80,5 +80,8 @@ public class AddCommando implements Commando {
         return true;
     }
 
-
+    @Override
+    public boolean shouldExecute(String userInput) {
+        return "add".equalsIgnoreCase(userInput);
+    }
 }

@@ -74,4 +74,8 @@ public class FightCommando implements Commando {
         return true;
     }
 
+    @Override
+    public boolean shouldExecute(String userInput) {
+        return "fight".equalsIgnoreCase(userInput);
+    }
 }

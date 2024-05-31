@@ -11,4 +11,9 @@ public class HelpCommando implements Commando {
         System.out.println("Maybe you will meet a wild pokemon if you enter 'fight'");
         return true;
     }
+
+    @Override
+    public boolean shouldExecute(String userInput) {
+        return "help".equalsIgnoreCase(userInput) || " ".equals(userInput);
+    }
 }
