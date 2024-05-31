@@ -60,7 +60,7 @@ public class Main {
             String line = scanner.nextLine();
             System.out.println("Your choice was: " + "\u001B[33m" + line + "\u001B[0m");
 
-            //QUESTION: Würde es sich hier anbieten lieber Switch Case zu nutzen anstelle von if else?
+            //Würde es sich hier anbieten lieber Switch Case zu nutzen anstelle von if else?
             //ANSWER: Ist einfach geschmackssache - kann ich selber entscheiden
             if ("exit".equalsIgnoreCase(line)) {
                 shouldRun = false;

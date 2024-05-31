@@ -24,14 +24,14 @@ public class ShowCommando {
             System.out.println("This pokemon knows the move: ");
             //loop über alle Moves, damit diese abgebildet werden können. Falls die ArrayList leer ist kommt eine andere Nachricht
 
-            //QUESTION?? Wie gehe ich hier vor? Nicht alle Monster haben movesets, nur die Pokemon
-            Pokemon pokemon = (Pokemon) monster;
-            if (pokemon instanceof Pokemon) { //QUESTION?? warum steht hier das ist always true?
+//Instance of vorher checken und dann erst umwandeln - Why? - dachte instance of funktioniert anders
+            if (monster instanceof Pokemon) { //QUESTION?? warum steht hier das ist always true?
+                Pokemon pokemon = (Pokemon) monster;
                 if (pokemon.moveset.isEmpty()) {
                     System.out.println("This pokemon does not know any moves :(");
                 } else {
                     for (Move move : pokemon.moveset) {
-                        //QUESTION: braucht es diese if Bedingung jetzt eigentlich noch? Bin ja von array zu ArrayList gewechselt
+                        //Braucht es diese if Bedingung jetzt eigentlich noch? Bin ja von array zu ArrayList gewechselt
                         //ANSWER: null könnte auch als Wert in der ArrayList sein, dann ist sie nicht mehr Empty
                         if (move != null) {
                             System.out.println(move.name);

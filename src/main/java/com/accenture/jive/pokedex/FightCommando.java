@@ -30,7 +30,7 @@ public class FightCommando {
         String selectedPokemon = scanner.nextLine();
         Monster selectedMonster = new Monster();
         //Im Pokedex wird gecheckt ob das eingegebene Pokemon existiert
-        //QUESTION: ich hätte hier auch gerne die Exit Bedingugn ohne sie nochmal von vorne schreiben zu müssen
+        //QUESTION: ich hätte hier auch gerne die Exit Bedingung ohne sie nochmal von vorne schreiben zu müssen
 
 //TO DO: Double check dass das correct verläuft
         for (Monster monster : catalogue) {
