@@ -35,37 +35,39 @@ public class FightCommando implements Commando {
         //QUESTION: ich hätte hier auch gerne die Exit Bedingung ohne sie nochmal von vorne schreiben zu müssen
 
 //TO DO: Double check dass das correct verläuft
+        boolean monsterFound = false;
         for (Monster monster : catalogue) {
             if (selectedPokemon.equals(monster.name)) {
                 selectedMonster = monster;
                 System.out.println("You have selected " + monster.name + " to fight against " + opponent.name);
-                break;
-            } else {
-                System.out.println("This pokemon is not part of your pokedex.");
+                monsterFound = true;
             }
         }
 
-        System.out.println("Select the attack from " + selectedMonster.name + "s moveset.");
-        //QUESTION: Ich zeige mehrfach alle moves aus dem moveset. Wie kann ich das refactoren, dass es nur einmal geschrieben ist?
-        //Mal bezieht es sich auf ein spezifisches Pokemon und mal auf alle moves ...
-        //QUESTION: auch hier das Problem - movesets haben nur pokemon und nicht alle Monster
-        Pokemon fightingPokemon = (Pokemon) selectedMonster;
-        if (fightingPokemon instanceof Pokemon) {
-            for (Move move : fightingPokemon.moveset) {
-                System.out.println(move.name + " : " + move.power);
-            }
-            String inputMove = scanner.nextLine();
-            boolean found = false;
-            for (Move move : fightingPokemon.moveset) {
-                if (inputMove.equalsIgnoreCase(move.name)) {
-                    opponent.hitPoints -= move.power;
-                    System.out.println(opponent.name + "s hitpoints were reduced by " + move.power);
-                    System.out.println(opponent.name + " now has " + opponent.hitPoints + " hitpoints remaining.");
-                    found = true;
+        if (!monsterFound) {
+            System.out.println("This monster is not part of your pokedex and can't fight!");
+        } else {
+            System.out.println("Select the attack from " + selectedMonster.name + "s moveset.");
+            //QUESTION: Ich zeige mehrfach alle moves aus dem moveset. Wie kann ich das refactoren, dass es nur einmal geschrieben ist?
+            //Mal bezieht es sich auf ein spezifisches Pokemon und mal auf alle moves ...
+            //QUESTION: auch hier das Problem - movesets haben nur pokemon und nicht alle Monster
+            boolean pokemonFound = false;
+            Pokemon fightingPokemon = (Pokemon) selectedMonster;
+            if (fightingPokemon instanceof Pokemon) {
+                for (Move move : fightingPokemon.moveset) {
+                    System.out.println(move.name + " : " + move.power);
+                }
+                String inputMove = scanner.nextLine();
+                for (Move move : fightingPokemon.moveset) {
+                    if (inputMove.equalsIgnoreCase(move.name)) {
+                        opponent.hitPoints -= move.power;
+                        System.out.println(opponent.name + "s hitpoints were reduced by " + move.power);
+                        System.out.println(opponent.name + " now has " + opponent.hitPoints + " hitpoints remaining.");
+                        pokemonFound = true;
+                    }
                 }
             }
-            //QUESTION: Warum wird diese NAchricht zweimal geloggt?
-            if (!found) {
+            if (!pokemonFound) {
                 System.out.println("This move does not exist");
             }
         }
